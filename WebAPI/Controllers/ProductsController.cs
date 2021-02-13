@@ -16,7 +16,7 @@ namespace WebAPI.Controllers
     public class ProductsController : ControllerBase
     {
         //Losely coupled
-        //naming convetion
+        //naming convetion                  
         //IoC Container -- Invesion of Control
         IProductService _productService;
 
@@ -25,12 +25,39 @@ namespace WebAPI.Controllers
             _productService = productService;
         }
 
-        [HttpGet]
-        public List<Product> Get()
+        [HttpGet("getall")]
+        public IActionResult GetAll()
         {
+            //Swagger
             //Dependency chain --
             var result = _productService.GetAll();
-            return result.Data;
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            return BadRequest(result.Message);
+        }
+
+        [HttpGet("getbyid")]
+        public IActionResult GetById(int id)
+        {
+            var result = _productService.GetById(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpPost("add")]
+        public IActionResult Add(Product product)
+        {
+            var result = _productService.Add(product);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
     }
 }
