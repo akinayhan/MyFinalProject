@@ -4,9 +4,8 @@ using System.Text;
 
 namespace DataAccess.Abstract
 {
-    interface Interface1
+    interface Interfacetest
     {
-        //test 
-        //TEST2
+        //test
     }
 }
